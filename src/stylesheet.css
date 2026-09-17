@@ -1,0 +1,45 @@
+:root {
+    --donkergrijs: #333333;
+    --lichtgrijs: #d2d2d2;
+    --wit: #efefef;
+    --zwart: #0a0a0a;
+
+    --font-hoofdletters: boldonse, sans-serif;
+    --font-tekst: sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-tekst);
+    background-color: var(--wit);
+    color: var(--zwart);
+}
+
+h1, h2, h3 {
+    font-family: var(--font-hoofdletters);
+    margin: 0;
+}
+
+p {
+    margin: 0 0 1em;
+}
+
+a {
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
