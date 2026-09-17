@@ -110,37 +110,6 @@
 </article>
 
 <style>
-
-@media (width > 600px) {
-        article {
-            grid-template-columns: 1fr 1.5fr;
-            grid-template-areas:
-                "foto media"
-                "foto covers"
-                "foto bio";
-        }
-
-        figure {
-            grid-area: foto;
-            height: 100%;
-        }
-        figure img {
-            height: 100%;
-            aspect-ratio: auto;
-        }
-
-        .media-carousel {
-            grid-area: media;
-        }
-
-        .covers-carousel {
-            grid-area: covers;
-        }
-
-        .bio {
-            grid-area: bio;
-        }
-    }
     article {
         max-width: 60em;
         margin-inline: auto;
@@ -157,34 +126,36 @@
     figure img {
         border-radius: 12px;
         width: 100%;
-        aspect-ratio: 2 / 4;
+        aspect-ratio: 3 / 4;
         object-fit: cover;
     }
 
-
     .media-carousel,
     .covers-carousel {
-        margin: 0 auto;
         display: flex;
         align-items: center;
         gap: 1em;
         background-color: var(--donkergrijs);
         border-radius: 12px;
         padding: 1em;
+        min-width: 0;
+
     }
 
     .carousel-track {
         flex: 1;
         display: flex;
         gap: 1em;
-        overflow: hidden;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
+        min-width: 0;
     }
 
     .carousel-track iframe {
         width: 100%;
         border: none;
+        flex-shrink: 0;
+        scroll-snap-align: start;
     }
 
     .covers-carousel .carousel-track img {
@@ -192,10 +163,8 @@
         width: 8em;
         aspect-ratio: 3 / 4;
         object-fit: cover;
-
-        scroll-snap-align: start;
         flex-shrink: 0;
-        /* flex-shrink: 0 op de items zelf voorkomt dat de iframe/afbeeldingen ineengedrukt worden om toch te passen, ze behouden hun eigen breedte en de track scrollt eromheen */
+        scroll-snap-align: start;
     }
 
     .media-carousel button,
@@ -229,6 +198,18 @@
         color: var(--wit);
         border-radius: 12px;
         padding: 1.5em;
+        min-width: 0;
+    }
+
+    .bio h2,
+    .bio h3 {
+        font-family: var(--font-hoofdletters);
+        margin: 0 0 0.5em;
+    }
+
+    .bio h3 {
+        font-size: 1rem;
+        margin-top: 1.5em;
     }
 
     details {
@@ -248,18 +229,63 @@
         margin: 0.5em 0 0;
     }
 
-    .bio h2,
-    .bio h3 {
-        font-family: var(--font-hoofdletters);
-        margin: 0 0 0.5em;
-    }
-
-    .bio h3 {
-        font-size: 1rem;
-        margin-top: 1.5em;
-    }
-
-    h1{
+    h1 {
         display: none;
     }
+
+    @media (width > 600px) {
+        article {
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.5fr);
+            grid-template-areas:
+                "foto media"
+                "foto covers"
+                "foto bio";
+        }
+
+        figure {
+            grid-area: foto;
+        }
+
+        figure img {
+            aspect-ratio: 1 / 1;
+            height: auto;
+        }
+
+        .media-carousel {
+            grid-area: media;
+            max-height: 800%;
+        }
+
+        .covers-carousel {
+            grid-area: covers;
+        }
+
+        .bio {
+            grid-area: bio;
+        }
+    }
+
+    /* Hover over alle 4 blocks */
+    figure,
+    .media-carousel,
+    .covers-carousel,
+    .bio {
+        transition: transform 0.2s ease;
+    }
+
+    details:hover, figure:hover,
+    .media-carousel:hover,
+    .covers-carousel:hover,
+    .bio:hover {
+        transform: scale(1.05);
+    }
+
+    /* hover over buttons en details */
+    summary, button {
+            transition: transform 0.2s ease;
+        }    
+    button:hover {
+            transform: scale(1.5);
+        }
+
 </style>
