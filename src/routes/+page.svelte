@@ -18,7 +18,6 @@
 
   <figure> 
     <img src="https://fdnd.directus.app/assets/{person.mugshot}" alt={person.name} />
-    <figcaption>{person.name}</figcaption>
   </figure>
 
     <section class="media-carousel">
@@ -54,8 +53,8 @@
     <button class="pijl-links">◀</button>
 
     <div class="carousel-track">
-        <img src="/covers/fav-game.jpg" alt="Cover van favoriete game" />
-        <img src="/covers/fav-movie.jpg" alt="Cover van favoriete film" />
+        <img src="/covers/the-last-of-us-2.jpg" alt="Cover van favoriete game" />
+        <img src="/covers/the-batman-2022.jpg" alt="Cover van favoriete film" />
     </div>
 
     <button class="pijl-rechts">▶</button>
@@ -111,6 +110,37 @@
 </article>
 
 <style>
+
+@media (width > 600px) {
+        article {
+            grid-template-columns: 1fr 1.5fr;
+            grid-template-areas:
+                "foto media"
+                "foto covers"
+                "foto bio";
+        }
+
+        figure {
+            grid-area: foto;
+            height: 100%;
+        }
+        figure img {
+            height: 100%;
+            aspect-ratio: auto;
+        }
+
+        .media-carousel {
+            grid-area: media;
+        }
+
+        .covers-carousel {
+            grid-area: covers;
+        }
+
+        .bio {
+            grid-area: bio;
+        }
+    }
     article {
         max-width: 60em;
         margin-inline: auto;
@@ -127,15 +157,10 @@
     figure img {
         border-radius: 12px;
         width: 100%;
-        aspect-ratio: 3 / 4;
+        aspect-ratio: 2 / 4;
         object-fit: cover;
     }
 
-    figcaption {
-        margin-top: 0.5em;
-        font-family: var(--font-hoofdletters);
-        font-size: 1.2rem;
-    }
 
     .media-carousel,
     .covers-carousel {
@@ -153,6 +178,8 @@
         display: flex;
         gap: 1em;
         overflow: hidden;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
     }
 
     .carousel-track iframe {
@@ -165,6 +192,10 @@
         width: 8em;
         aspect-ratio: 3 / 4;
         object-fit: cover;
+
+        scroll-snap-align: start;
+        flex-shrink: 0;
+        /* flex-shrink: 0 op de items zelf voorkomt dat de iframe/afbeeldingen ineengedrukt worden om toch te passen, ze behouden hun eigen breedte en de track scrollt eromheen */
     }
 
     .media-carousel button,
@@ -226,5 +257,9 @@
     .bio h3 {
         font-size: 1rem;
         margin-top: 1.5em;
+    }
+
+    h1{
+        display: none;
     }
 </style>
