@@ -5,7 +5,9 @@
     const person = data.person;
 
     const trackId1 = "1SOTqkhpIWoLX1AS9Y2RpU?si=157b2dedf290474e";
-    const trackId2 = "1SOTqkhpIWoLX1AS9Y2RpU?si=157b2dedf290474e";
+    const trackId2 = "47EiUVwUp4C9fGccaPuUCS?si=a8f2f33e39054022";
+  
+
 </script>
 
 <svelte:head>
@@ -22,94 +24,105 @@
 
     <section class="media-carousel">
         <h2>Favorite songs</h2>
-        <button class="pijl-links">◀</button>
 
         <div class="carousel-track">
             <iframe
+                id="song-1"
                 src="https://open.spotify.com/embed/track/{trackId1}"
-                height="152"
+                height="232"
                 allow="encrypted-media"
                 title="Favoriete nummer 1"
             ></iframe>
 
             <iframe
+                id="song-2"
                 src="https://open.spotify.com/embed/track/{trackId2}"
-                height="152"
+                height="232"
                 allow="encrypted-media"
                 title="Favoriete nummer 2"
             ></iframe>
         </div>
 
-        <button class="pijl-rechts">▶</button>
+        <div class="carousel-bolletjes">
+            <a href="#song-1" class="bolletje" aria-label="Toon nummer 1"></a>
+            <a href="#song-2" class="bolletje" aria-label="Toon nummer 2"></a>
+        </div>
+    </section>   
+
+    <section class="covers-carousel">
+        <h2>Favorite Movie & Game</h2>
+
+        <div class="carousel-track">
+            <img id="cover-1" src="/covers/the-last-of-us-2.jpg" alt="Cover van favoriete game" />
+            <img id="cover-2" src="/covers/the-batman-2022.jpg" alt="Cover van favoriete film" />
+        </div>
 
         <div class="carousel-bolletjes">
-            <span class="bolletje actief"></span>
-            <span class="bolletje"></span>
+            <a href="#cover-1" class="bolletje" aria-label="Toon game"></a>
+            <a href="#cover-2" class="bolletje" aria-label="Toon film"></a>
         </div>
-    </section>
-
-  <section class="covers-carousel">
-    <h2>Favorite Movie & Game</h2>
-    <button class="pijl-links">◀</button>
-
-    <div class="carousel-track">
-        <img src="/covers/the-last-of-us-2.jpg" alt="Cover van favoriete game" />
-        <img src="/covers/the-batman-2022.jpg" alt="Cover van favoriete film" />
-    </div>
-
-    <button class="pijl-rechts">▶</button>
-
-
-    </section>
+    </section>  
     
     <section class="bio">
         <h2>Bio</h2>
         <p>{@html person.bio}</p>
 
-        <details>
-            <summary>Favoriete dier</summary>
-            <p>{person.fav_animal}</p>
-        </details>
+        <button popovertarget="favorieten-popover">Favorieten</button>
 
-        <details>
-            <summary>Favoriet seizoen</summary>
-            <p>{person.fav_season}</p>
-        </details>
+        <div id="favorieten-popover" popover class="favorieten-popover">
+            <details>
+                <summary>Favoriete dier</summary>
+                <p>{person.fav_animal}</p>
+            </details>
 
-        <details>
-            <summary>Favoriete muzieknummer</summary>
-            <p>{person.fav_song}</p>
-        </details>
+            <details>
+                <summary>Favoriet seizoen</summary>
+                <p>{person.fav_season}</p>
+            </details>
 
-        <details>
-            <summary>Favoriete muziekgenre</summary>
-            <p>{person.fav_music_genre}</p>
-        </details>
+            <details>
+                <summary>Favoriete muzieknummer</summary>
+                <p>{person.fav_song}</p>
+            </details>
 
-        <details>
-            <summary>Favoriete game</summary>
-            <p>{person.fav_game}</p>
-        </details>
+            <details>
+                <summary>Favoriete muziekgenre</summary>
+                <p>{person.fav_music_genre}</p>
+            </details>
 
-        <details>
-            <summary>Favoriete fruit</summary>
-            <p>{person.fav_fruit}</p>
-        </details>
+            <details>
+                <summary>Favoriete game</summary>
+                <p>{person.fav_game}</p>
+            </details>
 
-        <details>
-            <summary>Favoriete soep</summary>
-            <p>{person.fav_soup}</p>
-        </details>
+            <details>
+                <summary>Favoriete fruit</summary>
+                <p>{person.fav_fruit}</p>
+            </details>
 
-        <details>
-            <summary>Favoriete film</summary>
-            <p>{person.fav_movie}</p>
-        </details>
+            <details>
+                <summary>Favoriete soep</summary>
+                <p>{person.fav_soup}</p>
+            </details>
+
+            <details>
+                <summary>Favoriete film</summary>
+                <p>{person.fav_movie}</p>
+            </details>
+        </div>
     </section>
 
 </article>
 
 <style>
+
+    .media-carousel{
+        h2{
+            display: none;
+        }
+    }
+
+
     article {
         max-width: 60em;
         margin-inline: auto;
@@ -165,6 +178,29 @@
         object-fit: cover;
         flex-shrink: 0;
         scroll-snap-align: start;
+    }
+
+    /* carousel track */
+
+    .carousel-track {
+        scrollbar-width: none;
+    }
+
+    .carousel-track::-webkit-scrollbar {
+        display: none;
+    }
+    .carousel-track iframe,
+    .covers-carousel .carousel-track img {
+        scroll-snap-align: start;
+        scroll-margin-left: 1em;
+    }    
+
+    .bolletje {
+        width: 0.6em;
+        height: 0.6em;
+        border-radius: 50%;
+        background-color: var(--lichtgrijs);
+        display: inline-block;
     }
 
     .media-carousel button,
@@ -239,16 +275,17 @@
             grid-template-areas:
                 "foto media"
                 "foto covers"
-                "foto bio";
+                "bio bio";
         }
 
         figure {
             grid-area: foto;
+            height: 100%;
         }
 
         figure img {
-            aspect-ratio: 1 / 1;
-            height: auto;
+            height: 100%;
+            aspect-ratio: auto;
         }
 
         .media-carousel {
@@ -263,7 +300,7 @@
         .bio {
             grid-area: bio;
         }
-    }
+    }   
 
     /* Hover over alle 4 blocks */
     figure,
@@ -288,4 +325,19 @@
             transform: scale(1.5);
         }
 
+        /* popover voor bio */
+    .favorieten-popover {
+        background-color: var(--donkergrijs);
+        border: 1px solid var(--lichtgrijs);
+        border-radius: 12px;
+        padding: 1em;
+        max-width: 24em;
+        
+    }      
+    .bio {button{
+            background-color: var(--lichtgrijs);
+            border-radius: 12px;
+            box-shadow: 0 4px 8px black;
+        }
+    }    
 </style>
